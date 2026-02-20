@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🧠 IBA-16 Pro 投資人格測驗</title>
+    <meta name="description" content="專業投資人格測驗，分析你的風險承受度、決策風格和投資配置建議">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .main-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #4a90e2, #357abd);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+            animation: float 20s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(100px, 100px); }
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 18px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            padding: 40px 30px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #4a90e2;
+            display: inline-block;
+            font-weight: 600;
+        }
+
+        .question {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 5px solid #4a90e2;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .question:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .question-text {
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .option {
+            flex: 1;
+            min-width: 110px;
+        }
+
+        .option input {
+            display: none;
+        }
+
+        .option label {
+            display: block;
+            padding: 15px 10px;
+            text-align: center;
+            background: #e9ecef;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 15px;
+            color: #495057;
+            font-weight: 500;
+        }
+
+        .option input:checked + label {
+            background: #4a90e2;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+        }
+
+        .option label:hover {
+            background: #dee2e6;
+        }
+
+        .btn-container {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #4a90e2, #357abd);
+            color: white;
+            border: none;
+            padding: 18px 50px;
+            font-size: 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 8px 20px rgba(74, 144, 226, 0.3);
+            font-weight: 600;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 25px rgba(74, 144, 226, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .result-container {
+            display: none;
+            animation: fadeIn 1s ease-in;
+        }
+
+        .result-header {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .result-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255,255,255,0.1);
+        }
+
+        .result-type {
+            font-size: 42px;
+            font-weight: 700;
+            margin: 20px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .result-desc {
+            font-size: 20px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .result-content {
+            padding: 40px 30px;
+        }
+
+        .score-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+
+        .score-item {
+            text-align: center;
+            padding: 25px 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            transition: transform 0.3s;
+        }
+
+        .score-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .score-value {
+            font-size: 28px;
+            font-weight: 700;
+            color: #4a90e2;
+            margin-bottom: 8px;
+        }
+
+        .score-label {
+            font-size: 15px;
+            color: #6c757d;
+            font-weight: 500;
+        }
+
+        .recommendation {
+            background: #e7f3ff;
+            padding: 25px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid #4a90e2;
+        }
+
+        .recommendation h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .recommendation p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 16px;
+        }
+
+        .progress-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+
+        .progress-bar {
+            height: 12px;
+            background: #e9ecef;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(45deg, #4a90e2, #357abd);
+            border-radius: 6px;
+            transition: width 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #6c757d;
+            font-size: 14px;
+            border-top: 1px solid #e9ecef;
+        }
+
+        @media (max-width: 768px) {
+            .options {
+                flex-direction: column;
+            }
+            
+            .option {
+                width: 100%;
+            }
+            
+            .score-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .header h1 {
+                font-size: 28px;
+            }
+            
+            .result-type {
+                font-size: 32px;
+            }
+            
+            .content {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .content {
+                padding: 25px 15px;
+            }
+            
+            .score-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .result-header {
+                padding: 30px 20px;
+            }
+            
+            .btn {
+                padding: 15px 40px;
+                font-size: 18px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="header">
+            <h1>🧠 IBA-16 Pro 投資人格測驗</h1>
+            <p>專業投資心理分析，幫助你了解自己的風險承受度與決策風格</p>
+        </div>
+        
+        <div class="content" id="testContainer">
+            <div class="section">
+                <h2 class="section-title">📊 A 組：面對不確定（測 RiskBehavior）</h2>
+                <div id="groupA"></div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">😌 B 組：壓力與情緒（測 Emotion）</h2>
+                <div id="groupB"></div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">🧩 C 組：決策習慣（測 Logic vs Intuition）</h2>
+                <div id="groupC"></div>
+            </div>
+            
+            <div class="section">
+                <h2 class="section-title">🎯 D 組：控制與主導（測 Control）</h2>
+                <div id="groupD"></div>
+            </div>
+            
+            <div class="btn-container">
+                <button class="btn" onclick="calculateResults()">🚀 計算完整結果</button>
+            </div>
+        </div>
+        
+        <div class="result-container" id="resultContainer">
+            <div class="result-header">
+                <h2>🎉 你的投資人格分析報告</h2>
+                <div class="result-type" id="resultType"></div>
+                <div class="result-desc" id="resultDesc"></div>
+            </div>
+            
+            <div class="result-content">
+                <div class="score-grid">
+                    <div class="score-item">
+                        <div class="score-value" id="riskScore"></div>
+                        <div class="score-label">風險承受度</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value" id="emotionScore"></div>
+                        <div class="score-label">情緒穩定度</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value" id="logicScore"></div>
+                        <div class="score-label">分析能力</div>
+                    </div>
+                    <div class="score-item">
+                        <div class="score-value" id="controlScore"></div>
+                        <div class="score-label">控制需求</div>
+                    </div>
+                </div>
+                
+                <div class="progress-container">
+                    <h3>📈 整體風險評級</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="rrProgress" style="width: 0%"></div>
+                    </div>
+                    <p>風險等級：<strong id="rrLevel"></strong> | 綜合分數：<strong id="rrScore"></strong></p>
+                </div>
+                
+                <div class="recommendation">
+                    <h3>💼 建議投資配置</h3>
+                    <p><strong>📊 成長型資產：</strong><span id="growthRange"></span><br>
+                    <strong>📈 穩健型資產：</strong><span id="stableRange"></span><br>
+                    <strong>💰 保守型資產：</strong><span id="conservativeRange"></span></p>
+                </div>
+                
+                <div class="recommendation">
+                    <h3>⚠ 投資行為提醒</h3>
+                    <p id="behaviorTips"></p>
+                </div>
+                
+                <div class="btn-container">
+                    <button class="btn" onclick="resetTest()">🔄 重新測試</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2026 IBA-16 Pro 投資人格測驗 v1.0 | 專業心理分析工具</p>
+        </div>
+    </div>
+
+    <script>
+        // 題庫定義（已移除財務相關部分）
+        const questions = {
+            groupA: [
+                "我能接受計畫出現大幅變動。",
+                "比起穩定，我更在意成長空間。",
+                "我不害怕嘗試新的方法。",
+                "如果短期看不到成果，我仍願意繼續。",
+                "我不會因為一兩次失敗就退縮。",
+                "我能接受過程中的起伏。",
+                "我願意為長期目標承受暫時不舒服。",
+                "比起安全感，我更重視潛在機會。"
+            ],
+            groupB: [
+                "當事情失控時，我容易焦慮。",
+                "我會反覆思考「早知道就…」。",
+                "外界消息會影響我的判斷。",
+                "我會頻繁確認進度是否順利。",
+                "當別人成功時，我會感到壓力。",
+                "面對突發狀況，我很難冷靜。",
+                "我常因一時情緒改變決定。",
+                "若結果不如預期，我會難以放下。"
+            ],
+            groupC: [
+                "做決定前我會查資料。",
+                "我會列出優缺點再行動。",
+                "我會為重要決定做準備。",
+                "我會記錄自己的決策經驗。",
+                "我傾向用數據說服自己。",
+                "我做決定時偏向理性思考。",
+                "我會設立明確標準。",
+                "我習慣事前規劃。"
+            ],
+            groupD: [
+                "我喜歡自己掌握全局。",
+                "我不太放心完全交給別人。",
+                "我會主動調整方向。",
+                "我希望能影響最終結果。",
+                "我享受優化過程。",
+                "我願意花時間讓事情更好。",
+                "我傾向自己做關鍵決定。",
+                "我不喜歡完全被動等待。"
+            ]
+        };
+
+        // 生成題目
+        function generateQuestions() {
+            Object.keys(questions).forEach(group => {
+                const container = document.getElementById(group);
+                questions[group].forEach((question, index) => {
+                    const questionDiv = document.createElement('div');
+                    questionDiv.className = 'question';
+                    
+                    questionDiv.innerHTML = `
+                        <div class="question-text">${index + 1}. ${question}</div>
+                        <div class="options">
+                            <div class="option">
+                                <input type="radio" id="${group}${index}1" name="${group}${index}" value="1">
+                                <label for="${group}${index}1">1<br><small>非常不同意</small></label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="${group}${index}2" name="${group}${index}" value="2">
+                                <label for="${group}${index}2">2<br><small>不同意</small></label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="${group}${index}3" name="${group}${index}" value="3">
+                                <label for="${group}${index}3">3<br><small>普通</small></label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="${group}${index}4" name="${group}${index}" value="4">
+                                <label for="${group}${index}4">4<br><small>同意</small></label>
+                            </div>
+                            <div class="option">
+                                <input type="radio" id="${group}${index}5" name="${group}${index}" value="5">
+                                <label for="${group}${index}5">5<br><small>非常同意</small></label>
+                            </div>
+                        </div>
+                    `;
+                    container.appendChild(questionDiv);
+                });
+            });
+        }
+
+        // 計算結果
+        function calculateResults() {
+            // 檢查是否所有題目都已回答
+            const allInputs = document.querySelectorAll('input[type="radio"]:checked');
+            if (allInputs.length < 32) {
+                alert('請完成所有題目後再計算結果！');
+                return;
+            }
+
+            // 計算各組分數
+            const riskScore = calculateGroupScore('groupA', 8, 32);
+            const emotionRaw = calculateGroupScore('groupB', 8, 32);
+            const emotionScore = 100 - (emotionRaw * 20 / 100); // 反向穩定度
+            const logicScore = calculateGroupScore('groupC', 8, 32);
+            const controlScore = calculateGroupScore('groupD', 8, 32);
+
+            // 計算類型
+            const riskType = riskScore >= 50 ? 'A' : 'C';
+            const emotionType = emotionScore >= 50 ? 'S' : 'R';
+            const logicType = logicScore >= 50 ? 'L' : 'I';
+            const controlType = controlScore >= 50 ? 'T' : 'P';
+            
+            const personalityType = riskType + '-' + emotionType + '-' + logicType + '-' + controlType;
+            
+            // 計算RR等級（簡化版，不包含財務因素）
+            const rrScore = 0.5 * riskScore + 0.3 * logicScore + 0.2 * emotionScore;
+            const rrLevel = getRRLevel(rrScore);
+            
+            // 顯示結果
+            displayResults(
+                riskScore, emotionScore, logicScore, controlScore,
+                personalityType, rrLevel, rrScore
+            );
+        }
+
+        // 計算組別分數
+        function calculateGroupScore(groupName, min, max) {
+            const inputs = document.querySelectorAll(`[name^="${groupName}"]:checked`);
+            let total = 0;
+            inputs.forEach(input => {
+                total += parseInt(input.value);
+            });
+            return ((total - min) / (max - min)) * 100;
+        }
+
+        // 獲取RR等級
+        function getRRLevel(score) {
+            if (score <= 20) return 'RR1 保守型';
+            if (score <= 40) return 'RR2 穩健型';
+            if (score <= 60) return 'RR3 平衡型';
+            if (score <= 80) return 'RR4 成長型';
+            return 'RR5 積極型';
+        }
+
+        // 顯示結果
+        function displayResults(risk, emotion, logic, control, type, rrLevel, rrScore) {
+            // 設定結果類型
+            const typeEmoji = getTypeEmoji(type);
+            document.getElementById('resultType').textContent = type + ' ' + typeEmoji;
+            document.getElementById('resultDesc').textContent = getTypeDescription(type);
+            
+            // 設定分數
+            document.getElementById('riskScore').textContent = Math.round(risk);
+            document.getElementById('emotionScore').textContent = Math.round(emotion);
+            document.getElementById('logicScore').textContent = Math.round(logic);
+            document.getElementById('controlScore').textContent = Math.round(control);
+            
+            // 設定RR等級
+            document.getElementById('rrLevel').textContent = rrLevel;
+            document.getElementById('rrScore').textContent = Math.round(rrScore);
+            document.getElementById('rrProgress').style.width = rrScore + '%';
+            
+            // 設定建議
+            const allocation = getAllocation(rrLevel);
+            document.getElementById('growthRange').textContent = allocation.growth;
+            document.getElementById('stableRange').textContent = allocation.stable;
+            document.getElementById('conservativeRange').textContent = allocation.conservative;
+            
+            // 設定行為提醒
+            document.getElementById('behaviorTips').textContent = getBehaviorTips(type, rrLevel);
+            
+            // 顯示結果頁
+            document.getElementById('testContainer').style.display = 'none';
+            document.getElementById('resultContainer').style.display = 'block';
+            
+            // 滾動到頂部
+            window.scrollTo(0, 0);
+        }
+
+        // 獲取類型emoji和描述
+        function getTypeEmoji(type) {
+            const emojiMap = {
+                'A-S-L-T': '🦊',
+                'A-S-L-P': '🐺',
+                'A-S-I-T': '🦁',
+                'A-S-I-P': '🐯',
+                'A-R-L-T': '🐆',
+                'A-R-L-P': '🦌',
+                'A-R-I-T': '🐅',
+                'A-R-I-P': '🐃',
+                'C-S-L-T': '🐘',
+                'C-S-L-P': '🦒',
+                'C-S-I-T': '🦏',
+                'C-S-I-P': '🦓',
+                'C-R-L-T': '🐢',
+                'C-R-L-P': '🐇',
+                'C-R-I-T': '🐿️',
+                'C-R-I-P': '🐁'
+            };
+            return emojiMap[type] || '🧩';
+        }
+
+        function getTypeDescription(type) {
+            const descMap = {
+                'A-S-L-T': '狐狸策略者 - 高風險承受與理性決策能力，情緒穩定且主動控制',
+                'A-S-L-P': '野狼觀察者 - 風險偏好但保持理性，情緒穩定且靈活適應',
+                'A-S-I-T': '獅子領袖 - 高風險承受與直覺決策，情緒穩定且主導性強',
+                'A-S-I-P': '老虎獵手 - 風險偏好且直覺敏銳，情緒穩定且行動快速',
+                'A-R-L-T': '獵豹執行者 - 高風險承受但易受情緒影響，理性分析且主導',
+                'A-R-L-P': '麋鹿探索者 - 風險偏好但情緒敏感，理性思考且適應力強',
+                'A-R-I-T': '猛虎衝鋒者 - 高風險承受且直覺強，情緒敏感但主導性高',
+                'A-R-I-P': '水牛穩健者 - 風險偏好且直覺導向，情緒敏感但堅持不懈',
+                'C-S-L-T': '大象規劃者 - 低風險承受但理性分析，情緒穩定且主導',
+                'C-S-L-P': '長頸鹿觀察者 - 風險規避且理性思考，情緒穩定且靈活',
+                'C-S-I-T': '犀牛守護者 - 低風險承受但直覺判斷，情緒穩定且堅持',
+                'C-S-I-P': '斑馬平衡者 - 風險規避且直覺導向，情緒穩定且適應力強',
+                'C-R-L-T': '烏龜保守者 - 低風險承受且理性分析，情緒敏感但主導',
+                'C-R-L-P': '兔子謹慎者 - 風險規避且理性思考，情緒敏感且靈活',
+                'C-R-I-T': '松鼠準備者 - 低風險承受且直覺判斷，情緒敏感且堅持',
+                'C-R-I-P': '老鼠觀察者 - 風險規避且直覺導向，情緒敏感且適應'
+            };
+            return descMap[type] || '獨特策略者 - 具備特殊投資特質組合';
+        }
+
+        // 獲取投資配置建議
+        function getAllocation(rrLevel) {
+            if (rrLevel.includes('RR1')) return { growth: '0-20%', stable: '40-60%', conservative: '30-50%' };
+            if (rrLevel.includes('RR2')) return { growth: '20-40%', stable: '40-50%', conservative: '20-30%' };
+            if (rrLevel.includes('RR3')) return { growth: '40-60%', stable: '30-40%', conservative: '10-20%' };
+            if (rrLevel.includes('RR4')) return { growth: '60-80%', stable: '15-30%', conservative: '5-15%' };
+            return { growth: '80-95%', stable: '5-15%', conservative: '0-5%' };
+        }
+
+        // 獲取行為提醒
+        function getBehaviorTips(type, rrLevel) {
+            let tips = [];
+            
+            if (type.startsWith('A')) {
+                tips.push('設定最大回撤限制（建議25%）');
+                tips.push('定期檢視風險暴露');
+            } else {
+                tips.push('考慮適度增加成長型資產');
+                tips.push('避免過度保守導致通膨侵蝕');
+            }
+            
+            if (type.includes('R')) {
+                tips.push('建立情緒緩衝機制');
+                tips.push('避免在市場波動時衝動決策');
+            }
+            
+            if (type.includes('I')) {
+                tips.push('搭配數據分析驗證直覺');
+                tips.push('記錄決策過程以供回顧');
+            }
+            
+            if (type.includes('T')) {
+                tips.push('避免過度控制導致壓力');
+                tips.push('適度委託專業管理');
+            }
+            
+            tips.push('每年至少一次全面檢視策略');
+            tips.push('根據生命階段調整配置');
+            
+            return tips.join(' | ');
+        }
+
+        // 重置測試
+        function resetTest() {
+            // 清除所有選擇
+            document.querySelectorAll('input[type="radio"]').forEach(input => {
+                input.checked = false;
+            });
+            
+            // 顯示測試頁
+            document.getElementById('testContainer').style.display = 'block';
+            document.getElementById('resultContainer').style.display = 'none';
+            
+            // 滾動到頂部
+            window.scrollTo(0, 0);
+        }
+
+        // 頁面載入時生成題目
+        window.onload = function() {
+            generateQuestions();
+        };
+    </script>
+</body>
+</html>
